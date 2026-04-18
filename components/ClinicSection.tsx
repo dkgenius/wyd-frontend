@@ -1,21 +1,23 @@
+"use client";
+
 const topics = [
   {
-    icon: "🎯",
+    label: "01",
     title: "The Dink",
-    desc: "Master the soft game and third-shot drops that win rallies.",
+    desc: "Master the soft game and third-shot drops that win rallies at the kitchen line.",
   },
   {
-    icon: "⚡",
+    label: "02",
     title: "Kitchen Control",
-    desc: "Dominate the non-volley zone with positioning and patience.",
+    desc: "Dominate the non-volley zone with precise positioning and patience.",
   },
   {
-    icon: "🏃",
+    label: "03",
     title: "Court Movement",
-    desc: "Footwork patterns that keep you in every point.",
+    desc: "Footwork patterns and transitions that keep you in every point.",
   },
   {
-    icon: "🤝",
+    label: "04",
     title: "Partner Play",
     desc: "Communication, stacking, and doubles strategy fundamentals.",
   },
@@ -24,78 +26,124 @@ const topics = [
 export default function ClinicSection() {
   return (
     <section
-      className="py-24 px-6"
-      style={{ background: "var(--surface)" }}
+      style={{
+        background: "var(--bg)",
+        padding: "120px 0",
+        borderTop: "1px solid rgba(235,235,235,0.06)",
+      }}
     >
-      <div className="max-w-6xl mx-auto">
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+
         {/* Header */}
-        <div className="text-center max-w-xl mx-auto mb-14">
-          <div
-            className="pill mb-4 mx-auto reveal"
-            style={{
-              background: "var(--teal-light)",
-              color: "var(--teal)",
-              width: "fit-content",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "var(--teal)" }}
-            />
-            The Clinic
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "space-between",
+            marginBottom: 80,
+            flexWrap: "wrap",
+            gap: 24,
+          }}
+        >
+          <div>
+            <p className="section-label" style={{ marginBottom: 16 }}>— The Clinic</p>
+            <h2
+              className="reveal"
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(52px, 8vw, 110px)",
+                lineHeight: 0.92,
+                letterSpacing: "0.03em",
+                color: "var(--text)",
+                margin: 0,
+              }}
+            >
+              LEVEL UP<br />
+              <span style={{ color: "var(--ball)" }}>YOUR</span><br />
+              GAME.
+            </h2>
           </div>
-          <h2
-            className="text-4xl font-extrabold tracking-tight leading-tight mb-4 reveal reveal-delay-1"
+
+          <a
+            href="https://whatyoudink.com/clinic.php"
+            className="reveal reveal-delay-2"
             style={{
-              fontFamily: "var(--font-syne)",
-              color: "var(--ink)",
+              fontFamily: "var(--font-body)",
+              fontSize: 12,
+              fontWeight: 600,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "var(--muted)",
+              display: "flex",
+              alignItems: "center",
+              gap: 8,
+              transition: "color 0.2s",
             }}
+            onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+            onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
           >
-            Level up your game
-          </h2>
-          <p
-            className="text-base leading-relaxed reveal reveal-delay-2"
-            style={{
-              color: "var(--ink-muted)",
-              fontFamily: "var(--font-dm-sans)",
-            }}
-          >
-            Structured lessons and guides covering every part of pickleball —
-            from beginner fundamentals to advanced competitive strategy.
-          </p>
+            All Clinic Topics
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
 
-        {/* Topics grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+        {/* Topics — horizontal numbered list */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            gap: 1,
+            background: "rgba(235,235,235,0.06)",
+            border: "1px solid rgba(235,235,235,0.06)",
+            borderRadius: 2,
+            marginBottom: 80,
+          }}
+          className="clinic-grid"
+        >
           {topics.map((topic, i) => (
             <div
               key={topic.title}
-              className={`p-6 rounded-2xl reveal reveal-delay-${i + 1} transition-colors duration-200`}
+              className={`reveal reveal-delay-${i + 1}`}
               style={{
-                background: "var(--parchment)",
-                border: "1px solid var(--border)",
+                padding: "40px 32px",
+                background: "var(--surface)",
+                transition: "background 0.2s",
+                cursor: "default",
               }}
+              onMouseEnter={e => (e.currentTarget.style.background = "var(--surface-2)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "var(--surface)")}
             >
               <div
-                className="text-2xl mb-4 w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ background: "var(--teal-light)" }}
-              >
-                {topic.icon}
-              </div>
-              <h3
-                className="font-bold text-base mb-2"
                 style={{
-                  fontFamily: "var(--font-syne)",
-                  color: "var(--ink)",
+                  fontFamily: "var(--font-display)",
+                  fontSize: 64,
+                  letterSpacing: "0.04em",
+                  color: "rgba(235,235,235,0.06)",
+                  lineHeight: 1,
+                  marginBottom: 24,
                 }}
               >
-                {topic.title}
+                {topic.label}
+              </div>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: 28,
+                  letterSpacing: "0.06em",
+                  color: "var(--text)",
+                  marginBottom: 12,
+                }}
+              >
+                {topic.title.toUpperCase()}
               </h3>
               <p
-                className="text-sm leading-relaxed"
                 style={{
-                  color: "var(--ink-muted)",
-                  fontFamily: "var(--font-dm-sans)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: 14,
+                  lineHeight: 1.6,
+                  color: "var(--muted)",
                 }}
               >
                 {topic.desc}
@@ -106,62 +154,112 @@ export default function ClinicSection() {
 
         {/* CTA banner */}
         <div
-          className="relative rounded-2xl overflow-hidden p-8 md:p-12 reveal"
+          className="reveal"
           style={{
-            background:
-              "linear-gradient(135deg, var(--teal) 0%, #073d4a 100%)",
+            position: "relative",
+            borderRadius: 4,
+            overflow: "hidden",
+            padding: "64px 56px",
+            background: "linear-gradient(135deg, var(--teal) 0%, #051e25 100%)",
+            display: "flex",
+            flexWrap: "wrap",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 32,
           }}
         >
-          {/* Background grid pattern */}
+          {/* Grid pattern */}
           <div
-            className="absolute inset-0 opacity-10"
             style={{
+              position: "absolute",
+              inset: 0,
+              opacity: 0.07,
               backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
+                "linear-gradient(rgba(199,255,46,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(199,255,46,0.5) 1px, transparent 1px)",
+              backgroundSize: "32px 32px",
+              pointerEvents: "none",
             }}
-            aria-hidden="true"
           />
 
-          <div className="relative flex flex-col md:flex-row items-center justify-between gap-8">
-            <div>
-              <h3
-                className="text-2xl md:text-3xl font-extrabold text-white mb-2"
-                style={{ fontFamily: "var(--font-syne)" }}
-              >
-                Ready to improve your game?
-              </h3>
-              <p
-                className="text-sm md:text-base text-white/70 max-w-md"
-                style={{ fontFamily: "var(--font-dm-sans)" }}
-              >
-                Browse all clinic topics, from beginner serve mechanics to
-                advanced tournament preparation.
-              </p>
-            </div>
-            <a
-              href="https://whatyoudink.com/clinic.php"
-              className="flex-shrink-0 inline-flex items-center gap-2 px-7 py-4 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
+          {/* Neon corner accent */}
+          <div
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 0,
+              width: 300,
+              height: 300,
+              background: "radial-gradient(circle at top right, rgba(199,255,46,0.15) 0%, transparent 60%)",
+              pointerEvents: "none",
+            }}
+          />
+
+          <div style={{ position: "relative" }}>
+            <h3
               style={{
-                background: "var(--amber)",
-                color: "var(--ink)",
-                fontFamily: "var(--font-dm-sans)",
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(36px, 5vw, 64px)",
+                letterSpacing: "0.04em",
+                color: "#EBEBEB",
+                lineHeight: 0.95,
+                marginBottom: 16,
               }}
             >
-              Explore the Clinic
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+              READY TO<br />
+              <span style={{ color: "var(--ball)" }}>IMPROVE?</span>
+            </h3>
+            <p
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 15,
+                color: "rgba(235,235,235,0.6)",
+                maxWidth: 400,
+                lineHeight: 1.6,
+              }}
+            >
+              Browse all clinic topics — from beginner serve mechanics to
+              advanced tournament preparation.
+            </p>
           </div>
+
+          <a
+            href="https://whatyoudink.com/clinic.php"
+            style={{
+              position: "relative",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 10,
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              padding: "16px 32px",
+              borderRadius: 999,
+              background: "var(--ball)",
+              color: "#080808",
+              flexShrink: 0,
+              transition: "opacity 0.2s, transform 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "none"; }}
+          >
+            Explore the Clinic
+            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </a>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .clinic-grid { grid-template-columns: 1fr 1fr !important; }
+        }
+        @media (max-width: 480px) {
+          .clinic-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </section>
   );
 }

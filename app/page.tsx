@@ -1,7 +1,6 @@
 import HeroSection from "@/components/HeroSection";
-import StatsBar from "@/components/StatsBar";
-import CourtFinderSection from "@/components/CourtFinderSection";
-import ReviewsSection from "@/components/ReviewsSection";
+import CitiesTicker from "@/components/CitiesTicker";
+import CourtShowcaseSection from "@/components/CourtShowcaseSection";
 import FeaturedVideoSection from "@/components/FeaturedVideoSection";
 import ClinicSection from "@/components/ClinicSection";
 
@@ -9,9 +8,8 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <StatsBar />
-      <CourtFinderSection />
-      <ReviewsSection />
+      <CitiesTicker />
+      <CourtShowcaseSection />
       <FeaturedVideoSection />
       <ClinicSection />
     </>

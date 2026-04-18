@@ -1,67 +1,136 @@
-import Link from "next/link";
-
 const footerLinks = {
   Explore: [
     { label: "Find Courts", href: "https://whatyoudink.com/map.php" },
     { label: "Court Reviews", href: "https://whatyoudink.com/blog.php" },
-    { label: "Product Reviews", href: "https://whatyoudink.com/blog.php" },
     { label: "The Clinic", href: "https://whatyoudink.com/clinic.php" },
+    { label: "Videos", href: "https://www.youtube.com/@WhatYouDink" },
   ],
   Connect: [
     { label: "YouTube", href: "https://www.youtube.com/@WhatYouDink" },
     { label: "About WYD", href: "https://whatyoudink.com/about.php" },
+    { label: "Privacy", href: "https://whatyoudink.com/privacy.php" },
+    { label: "Terms", href: "https://whatyoudink.com/terms.php" },
   ],
 };
 
 export default function Footer() {
   return (
     <footer
-      className="mt-24 border-t"
-      style={{ borderColor: "var(--border)", background: "var(--surface)" }}
+      style={{
+        background: "var(--surface)",
+        borderTop: "1px solid rgba(235,235,235,0.06)",
+        padding: "80px 0 40px",
+      }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+
+        {/* Top row */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr auto auto",
+            gap: 80,
+            marginBottom: 64,
+            paddingBottom: 64,
+            borderBottom: "1px solid rgba(235,235,235,0.06)",
+          }}
+          className="footer-grid"
+        >
           {/* Brand */}
-          <div>
-            <div className="flex items-center gap-2.5 mb-4">
+          <div style={{ maxWidth: 320 }}>
+            <a
+              href="/"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                fontFamily: "var(--font-display)",
+                fontSize: 22,
+                letterSpacing: "0.08em",
+                color: "var(--text)",
+                marginBottom: 20,
+              }}
+            >
               <span
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
-                style={{ background: "var(--teal)" }}
-              >
-                W
-              </span>
-              <span
-                className="font-semibold text-[15px] tracking-tight"
-                style={{ fontFamily: "var(--font-syne)", color: "var(--ink)", fontWeight: 700 }}
-              >
-                WhatYouDink
-              </span>
-            </div>
+                style={{
+                  display: "inline-block",
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: "var(--ball)",
+                }}
+              />
+              WHATYOUDINK
+            </a>
             <p
-              className="text-sm leading-relaxed max-w-xs"
-              style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 14,
+                lineHeight: 1.7,
+                color: "var(--muted)",
+              }}
             >
               Real in-person pickleball court reviews, honest ratings, and a
               searchable map to find the right spot for your game.
             </p>
+
+            {/* YouTube link */}
+            <a
+              href="https://www.youtube.com/@WhatYouDink"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                marginTop: 24,
+                fontFamily: "var(--font-body)",
+                fontSize: 12,
+                fontWeight: 600,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: "var(--muted)",
+                transition: "color 0.2s",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = "var(--ball)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
+            >
+              <svg style={{ width: 14, height: 14, flexShrink: 0 }} viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+              </svg>
+              Watch on YouTube
+            </a>
           </div>
 
-          {/* Links */}
+          {/* Link columns */}
           {Object.entries(footerLinks).map(([category, links]) => (
             <div key={category}>
               <h4
-                className="text-xs font-semibold uppercase tracking-widest mb-4"
-                style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: "var(--muted2)",
+                  marginBottom: 20,
+                }}
               >
                 {category}
               </h4>
-              <ul className="space-y-2.5">
+              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
                 {links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="text-sm transition-colors duration-200 hover:text-teal-700"
-                      style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: 14,
+                        color: "var(--muted)",
+                        transition: "color 0.2s",
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+                      onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
                     >
                       {link.label}
                     </a>
@@ -74,33 +143,71 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="mt-12 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3"
-          style={{ borderColor: "var(--border)" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 16,
+          }}
         >
           <p
-            className="text-xs"
-            style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: 12,
+              color: "var(--muted2)",
+              letterSpacing: "0.04em",
+            }}
           >
-            © {new Date().getFullYear()} WhatYouDink. All rights reserved.
+            © {new Date().getFullYear()} WhatYouDink. No sponsored rankings. Ever.
           </p>
-          <div className="flex items-center gap-4">
-            <a
-              href="https://whatyoudink.com/privacy.php"
-              className="text-xs transition-colors hover:text-teal-700"
-              style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
+
+          {/* Neon label */}
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              padding: "6px 14px",
+              borderRadius: 999,
+              border: "1px solid rgba(199,255,46,0.25)",
+              background: "rgba(199,255,46,0.05)",
+            }}
+          >
+            <span
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: "50%",
+                background: "var(--ball)",
+                display: "inline-block",
+              }}
+            />
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: "var(--ball)",
+              }}
             >
-              Privacy
-            </a>
-            <a
-              href="https://whatyoudink.com/terms.php"
-              className="text-xs transition-colors hover:text-teal-700"
-              style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
-            >
-              Terms
-            </a>
+              100% Unsponsored
+            </span>
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
+          .footer-grid > :first-child { grid-column: 1 / -1; }
+        }
+        @media (max-width: 480px) {
+          .footer-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
     </footer>
   );
 }

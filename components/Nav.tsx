@@ -1,130 +1,168 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const navLinks = [
-  { label: "Courts", href: "https://whatyoudink.com/map.php" },
+  { label: "Courts",  href: "https://whatyoudink.com/map.php" },
   { label: "Reviews", href: "https://whatyoudink.com/blog.php" },
-  { label: "Clinic", href: "https://whatyoudink.com/clinic.php" },
-  { label: "Videos", href: "https://www.youtube.com/@WhatYouDink" },
-  { label: "About", href: "https://whatyoudink.com/about.php" },
+  { label: "Clinic",  href: "https://whatyoudink.com/clinic.php" },
+  { label: "Videos",  href: "https://www.youtube.com/@WhatYouDink", external: true },
+  { label: "About",   href: "https://whatyoudink.com/about.php" },
 ];
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
+    const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (!menuOpen) return;
-    const handleClick = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [menuOpen]);
-
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "nav-frosted shadow-sm" : "bg-transparent"
-      }`}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 100,
+        transition: "background 0.4s ease, border-color 0.4s ease",
+        background: scrolled ? "rgba(8,8,8,0.88)" : "transparent",
+        backdropFilter: scrolled ? "blur(16px)" : "none",
+        borderBottom: scrolled ? "1px solid rgba(235,235,235,0.08)" : "1px solid transparent",
+      }}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <span
-            className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
-            style={{ background: "var(--teal)" }}
-          >
-            W
-          </span>
-          <span
-            className="font-display font-700 text-[15px] tracking-tight hidden sm:block"
-            style={{ color: "var(--ink)", fontFamily: "var(--font-syne)", fontWeight: 700 }}
-          >
-            WhatYouDink
-          </span>
-        </Link>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        {/* Logo */}
+        <a
+          href="/"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: 22,
+            letterSpacing: "0.08em",
+            color: "var(--text)",
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+          }}
+        >
+          <span
+            style={{
+              display: "inline-block",
+              width: 8,
+              height: 8,
+              borderRadius: "50%",
+              background: "var(--ball)",
+              animation: "blink 1.6s infinite",
+            }}
+          />
+          WHATYOUDINK
+        </a>
+
+        {/* Desktop links */}
+        <nav style={{ display: "flex", alignItems: "center", gap: 32 }} className="hidden md:flex">
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
-              target={link.href.startsWith("http") && !link.href.includes("whatyoudink.com") ? "_blank" : undefined}
-              rel={link.href.startsWith("http") && !link.href.includes("whatyoudink.com") ? "noopener noreferrer" : undefined}
-              className="text-sm font-medium transition-colors duration-200 hover:text-teal-700"
-              style={{ color: "var(--ink-muted)", fontFamily: "var(--font-dm-sans)" }}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: 13,
+                fontWeight: 500,
+                letterSpacing: "0.06em",
+                color: "var(--muted)",
+                textTransform: "uppercase",
+                transition: "color 0.2s ease",
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
             >
               {link.label}
             </a>
           ))}
           <a
             href="https://whatyoudink.com/map.php"
-            className="ml-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-all duration-200 hover:opacity-90 hover:shadow-lg hover:-translate-y-px"
             style={{
-              background: "var(--teal)",
-              fontFamily: "var(--font-dm-sans)",
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              fontWeight: 600,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              padding: "8px 20px",
+              borderRadius: 999,
+              background: "var(--ball)",
+              color: "#080808",
+              transition: "opacity 0.2s ease, transform 0.2s ease",
             }}
+            onMouseEnter={e => { e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-1px)"; }}
+            onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "none"; }}
           >
             Find Courts
           </a>
         </nav>
 
-        {/* Mobile Hamburger */}
+        {/* Mobile hamburger */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2 rounded-lg transition-colors hover:bg-parchment-dark"
+          className="md:hidden"
           aria-label="Toggle menu"
-          aria-expanded={menuOpen}
+          style={{ background: "none", border: "none", cursor: "pointer", padding: 8, display: "flex", flexDirection: "column", gap: 6 }}
         >
-          <span
-            className={`block w-5 h-0.5 rounded-full transition-all duration-300 ${
-              menuOpen ? "rotate-45 translate-y-2" : ""
-            }`}
-            style={{ background: "var(--ink)" }}
-          />
-          <span
-            className={`block w-5 h-0.5 rounded-full transition-all duration-300 ${
-              menuOpen ? "opacity-0" : ""
-            }`}
-            style={{ background: "var(--ink)" }}
-          />
-          <span
-            className={`block w-5 h-0.5 rounded-full transition-all duration-300 ${
-              menuOpen ? "-rotate-45 -translate-y-2" : ""
-            }`}
-            style={{ background: "var(--ink)" }}
-          />
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              style={{
+                display: "block",
+                width: 22,
+                height: 1.5,
+                background: "var(--text)",
+                borderRadius: 1,
+                transition: "all 0.3s ease",
+                opacity: i === 1 && menuOpen ? 0 : 1,
+                transform: menuOpen
+                  ? i === 0 ? "rotate(45deg) translate(5px, 5px)"
+                  : i === 2 ? "rotate(-45deg) translate(5px, -5px)"
+                  : "none"
+                  : "none",
+              }}
+            />
+          ))}
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        ref={menuRef}
-        className={`md:hidden absolute top-full left-0 right-0 nav-frosted transition-all duration-300 ${
-          menuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-        }`}
-      >
-        <nav className="max-w-6xl mx-auto px-6 py-4 flex flex-col gap-1">
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div
+          style={{
+            position: "absolute",
+            top: "100%",
+            left: 0,
+            right: 0,
+            background: "rgba(8,8,8,0.97)",
+            backdropFilter: "blur(20px)",
+            borderBottom: "1px solid rgba(235,235,235,0.08)",
+            padding: "16px 24px 24px",
+          }}
+        >
           {navLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="py-2.5 px-3 rounded-lg text-sm font-medium transition-colors hover:bg-parchment-dark"
-              style={{ color: "var(--ink)", fontFamily: "var(--font-dm-sans)" }}
+              style={{
+                display: "block",
+                fontFamily: "var(--font-display)",
+                fontSize: 32,
+                letterSpacing: "0.06em",
+                color: "var(--text)",
+                padding: "10px 0",
+                borderBottom: "1px solid rgba(235,235,235,0.06)",
+              }}
             >
               {link.label}
             </a>
@@ -132,13 +170,29 @@ export default function Nav() {
           <a
             href="https://whatyoudink.com/map.php"
             onClick={() => setMenuOpen(false)}
-            className="mt-2 py-3 px-4 rounded-full text-sm font-semibold text-white text-center"
-            style={{ background: "var(--teal)" }}
+            style={{
+              display: "block",
+              marginTop: 20,
+              textAlign: "center",
+              fontFamily: "var(--font-body)",
+              fontSize: 13,
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              padding: "14px",
+              borderRadius: 999,
+              background: "var(--ball)",
+              color: "#080808",
+            }}
           >
-            Find Courts Near You
+            Find Courts Near Me
           </a>
-        </nav>
-      </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+      `}</style>
     </header>
   );
 }
