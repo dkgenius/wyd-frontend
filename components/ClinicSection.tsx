@@ -28,30 +28,21 @@ export default function ClinicSection() {
     <section
       style={{
         background: "var(--bg)",
-        padding: "120px 0",
+        padding: "80px 0",
         borderTop: "1px solid rgba(235,235,235,0.06)",
       }}
     >
-      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 20px" }}>
 
         {/* Header */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            marginBottom: 80,
-            flexWrap: "wrap",
-            gap: 24,
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 48, flexWrap: "wrap", gap: 16 }}>
           <div>
-            <p className="section-label" style={{ marginBottom: 16 }}>— The Clinic</p>
+            <p className="section-label reveal-fade" style={{ marginBottom: 12 }}>— The Clinic</p>
             <h2
-              className="reveal"
+              className="reveal-right"
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(52px, 8vw, 110px)",
+                fontSize: "clamp(48px, 10vw, 110px)",
                 lineHeight: 0.92,
                 letterSpacing: "0.03em",
                 color: "var(--text)",
@@ -66,7 +57,7 @@ export default function ClinicSection() {
 
           <a
             href="https://whatyoudink.com/clinic.php"
-            className="reveal reveal-delay-2"
+            className="reveal-fade reveal-delay-2"
             style={{
               fontFamily: "var(--font-body)",
               fontSize: 12,
@@ -78,51 +69,49 @@ export default function ClinicSection() {
               alignItems: "center",
               gap: 8,
               transition: "color 0.2s",
+              alignSelf: "flex-start",
+              marginTop: 8,
             }}
             onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
             onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
           >
-            All Clinic Topics
+            All Topics
             <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </a>
         </div>
 
-        {/* Topics — horizontal numbered list */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 1,
-            background: "rgba(235,235,235,0.06)",
-            border: "1px solid rgba(235,235,235,0.06)",
-            borderRadius: 2,
-            marginBottom: 80,
-          }}
-          className="clinic-grid"
-        >
+        {/* Topics grid */}
+        <div className="clinic-topics-grid">
           {topics.map((topic, i) => (
             <div
               key={topic.title}
               className={`reveal reveal-delay-${i + 1}`}
               style={{
-                padding: "40px 32px",
+                padding: "32px 28px",
                 background: "var(--surface)",
-                transition: "background 0.2s",
+                borderRadius: 4,
+                transition: "background 0.2s, transform 0.2s",
                 cursor: "default",
               }}
-              onMouseEnter={e => (e.currentTarget.style.background = "var(--surface-2)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "var(--surface)")}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLElement).style.background = "var(--surface-2)";
+                (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLElement).style.background = "var(--surface)";
+                (e.currentTarget as HTMLElement).style.transform = "none";
+              }}
             >
               <div
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 64,
+                  fontSize: 56,
                   letterSpacing: "0.04em",
-                  color: "rgba(235,235,235,0.06)",
+                  color: "rgba(235,235,235,0.05)",
                   lineHeight: 1,
-                  marginBottom: 24,
+                  marginBottom: 20,
                 }}
               >
                 {topic.label}
@@ -130,10 +119,10 @@ export default function ClinicSection() {
               <h3
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontSize: 28,
+                  fontSize: 26,
                   letterSpacing: "0.06em",
                   color: "var(--text)",
-                  marginBottom: 12,
+                  marginBottom: 10,
                 }}
               >
                 {topic.title.toUpperCase()}
@@ -142,7 +131,7 @@ export default function ClinicSection() {
                 style={{
                   fontFamily: "var(--font-body)",
                   fontSize: 14,
-                  lineHeight: 1.6,
+                  lineHeight: 1.65,
                   color: "var(--muted)",
                 }}
               >
@@ -154,18 +143,19 @@ export default function ClinicSection() {
 
         {/* CTA banner */}
         <div
-          className="reveal"
+          className="reveal-scale"
           style={{
             position: "relative",
-            borderRadius: 4,
+            borderRadius: 8,
             overflow: "hidden",
-            padding: "64px 56px",
+            padding: "48px 32px",
+            marginTop: 20,
             background: "linear-gradient(135deg, var(--teal) 0%, #051e25 100%)",
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: 32,
+            gap: 28,
           }}
         >
           {/* Grid pattern */}
@@ -174,22 +164,19 @@ export default function ClinicSection() {
               position: "absolute",
               inset: 0,
               opacity: 0.07,
-              backgroundImage:
-                "linear-gradient(rgba(199,255,46,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(199,255,46,0.5) 1px, transparent 1px)",
+              backgroundImage: "linear-gradient(rgba(199,255,46,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(199,255,46,0.5) 1px, transparent 1px)",
               backgroundSize: "32px 32px",
               pointerEvents: "none",
             }}
           />
-
-          {/* Neon corner accent */}
           <div
             style={{
               position: "absolute",
               top: 0,
               right: 0,
-              width: 300,
-              height: 300,
-              background: "radial-gradient(circle at top right, rgba(199,255,46,0.15) 0%, transparent 60%)",
+              width: 250,
+              height: 250,
+              background: "radial-gradient(circle at top right, rgba(199,255,46,0.18) 0%, transparent 60%)",
               pointerEvents: "none",
             }}
           />
@@ -198,11 +185,11 @@ export default function ClinicSection() {
             <h3
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(36px, 5vw, 64px)",
+                fontSize: "clamp(32px, 6vw, 60px)",
                 letterSpacing: "0.04em",
                 color: "#EBEBEB",
                 lineHeight: 0.95,
-                marginBottom: 16,
+                marginBottom: 12,
               }}
             >
               READY TO<br />
@@ -211,14 +198,13 @@ export default function ClinicSection() {
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: 15,
-                color: "rgba(235,235,235,0.6)",
-                maxWidth: 400,
+                fontSize: 14,
+                color: "rgba(235,235,235,0.58)",
+                maxWidth: 380,
                 lineHeight: 1.6,
               }}
             >
-              Browse all clinic topics — from beginner serve mechanics to
-              advanced tournament preparation.
+              Browse all clinic topics — from beginner serve mechanics to advanced tournament prep.
             </p>
           </div>
 
@@ -234,18 +220,19 @@ export default function ClinicSection() {
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              padding: "16px 32px",
+              padding: "16px 28px",
               borderRadius: 999,
               background: "var(--ball)",
               color: "#080808",
               flexShrink: 0,
               transition: "opacity 0.2s, transform 0.2s",
+              width: "fit-content",
             }}
             onMouseEnter={e => { e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-2px)"; }}
             onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "none"; }}
           >
             Explore the Clinic
-            <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <svg width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </a>
@@ -253,11 +240,17 @@ export default function ClinicSection() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .clinic-grid { grid-template-columns: 1fr 1fr !important; }
+        .clinic-topics-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 12px;
+          margin-bottom: 20px;
         }
-        @media (max-width: 480px) {
-          .clinic-grid { grid-template-columns: 1fr !important; }
+        @media (min-width: 768px) {
+          .clinic-topics-grid {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+          }
         }
       `}</style>
     </section>

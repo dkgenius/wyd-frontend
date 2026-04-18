@@ -21,48 +21,21 @@ export default function Footer() {
       style={{
         background: "var(--surface)",
         borderTop: "1px solid rgba(235,235,235,0.06)",
-        padding: "80px 0 40px",
+        padding: "64px 0 36px",
       }}
     >
-      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 32px" }}>
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 20px" }}>
 
-        {/* Top row */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr auto auto",
-            gap: 80,
-            marginBottom: 64,
-            paddingBottom: 64,
-            borderBottom: "1px solid rgba(235,235,235,0.06)",
-          }}
-          className="footer-grid"
-        >
+        {/* Top section */}
+        <div className="footer-top">
           {/* Brand */}
-          <div style={{ maxWidth: 320 }}>
-            <a
-              href="/"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 8,
-                fontFamily: "var(--font-display)",
-                fontSize: 22,
-                letterSpacing: "0.08em",
-                color: "var(--text)",
-                marginBottom: 20,
-              }}
-            >
-              <span
-                style={{
-                  display: "inline-block",
-                  width: 8,
-                  height: 8,
-                  borderRadius: "50%",
-                  background: "var(--ball)",
-                }}
+          <div style={{ marginBottom: 0 }}>
+            <a href="/" style={{ display: "inline-block", marginBottom: 16 }}>
+              <img
+                src="https://www.whatyoudink.com/assets/whatyoudinklogo.png"
+                alt="WhatYouDink"
+                style={{ height: 32, width: "auto", objectFit: "contain" }}
               />
-              WHATYOUDINK
             </a>
             <p
               style={{
@@ -70,13 +43,14 @@ export default function Footer() {
                 fontSize: 14,
                 lineHeight: 1.7,
                 color: "var(--muted)",
+                maxWidth: 280,
+                marginBottom: 20,
               }}
             >
               Real in-person pickleball court reviews, honest ratings, and a
               searchable map to find the right spot for your game.
             </p>
 
-            {/* YouTube link */}
             <a
               href="https://www.youtube.com/@WhatYouDink"
               target="_blank"
@@ -85,7 +59,6 @@ export default function Footer() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: 8,
-                marginTop: 24,
                 fontFamily: "var(--font-body)",
                 fontSize: 12,
                 fontWeight: 600,
@@ -105,54 +78,51 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: 11,
-                  fontWeight: 600,
-                  letterSpacing: "0.12em",
-                  textTransform: "uppercase",
-                  color: "var(--muted2)",
-                  marginBottom: 20,
-                }}
-              >
-                {category}
-              </h4>
-              <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 12 }}>
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      style={{
-                        fontFamily: "var(--font-body)",
-                        fontSize: 14,
-                        color: "var(--muted)",
-                        transition: "color 0.2s",
-                      }}
-                      onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
-                      onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div className="footer-links">
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <h4
+                  style={{
+                    fontFamily: "var(--font-body)",
+                    fontSize: 10,
+                    fontWeight: 600,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: "var(--muted2)",
+                    marginBottom: 16,
+                  }}
+                >
+                  {category}
+                </h4>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 11 }}>
+                  {links.map((link) => (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: 14,
+                          color: "var(--muted)",
+                          transition: "color 0.2s",
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.color = "var(--text)")}
+                        onMouseLeave={e => (e.currentTarget.style.color = "var(--muted)")}
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
+        {/* Divider */}
+        <div style={{ height: 1, background: "rgba(235,235,235,0.06)", margin: "40px 0 24px" }} />
+
         {/* Bottom bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-            gap: 16,
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
           <p
             style={{
               fontFamily: "var(--font-body)",
@@ -161,40 +131,22 @@ export default function Footer() {
               letterSpacing: "0.04em",
             }}
           >
-            © {new Date().getFullYear()} WhatYouDink. No sponsored rankings. Ever.
+            © {new Date().getFullYear()} WhatYouDink — No sponsored rankings. Ever.
           </p>
 
-          {/* Neon label */}
           <div
             style={{
               display: "inline-flex",
               alignItems: "center",
-              gap: 8,
-              padding: "6px 14px",
+              gap: 7,
+              padding: "5px 12px",
               borderRadius: 999,
-              border: "1px solid rgba(199,255,46,0.25)",
-              background: "rgba(199,255,46,0.05)",
+              border: "1px solid rgba(199,255,46,0.2)",
+              background: "rgba(199,255,46,0.04)",
             }}
           >
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: "var(--ball)",
-                display: "inline-block",
-              }}
-            />
-            <span
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: 11,
-                fontWeight: 600,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--ball)",
-              }}
-            >
+            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "var(--ball)", display: "inline-block", flexShrink: 0 }} />
+            <span style={{ fontFamily: "var(--font-body)", fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ball)" }}>
               100% Unsponsored
             </span>
           </div>
@@ -202,12 +154,26 @@ export default function Footer() {
       </div>
 
       <style>{`
-        @media (max-width: 768px) {
-          .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 40px !important; }
-          .footer-grid > :first-child { grid-column: 1 / -1; }
+        .footer-top {
+          display: flex;
+          flex-direction: column;
+          gap: 40px;
         }
-        @media (max-width: 480px) {
-          .footer-grid { grid-template-columns: 1fr !important; }
+        .footer-links {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 32px;
+        }
+        @media (min-width: 768px) {
+          .footer-top {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 80px;
+            align-items: start;
+          }
+          .footer-links {
+            gap: 64px;
+          }
         }
       `}</style>
     </footer>

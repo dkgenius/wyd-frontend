@@ -46,6 +46,13 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
+                var ANIM_CLASSES = [
+                  '.reveal', '.reveal-left', '.reveal-right',
+                  '.reveal-scale', '.reveal-fade', '.reveal-tilt', '.reveal-blur',
+                  '.court-line'
+                ];
+                var selector = ANIM_CLASSES.join(', ');
+
                 var io = new IntersectionObserver(function(entries) {
                   entries.forEach(function(e) {
                     if (e.isIntersecting) {
@@ -56,15 +63,18 @@ export default function RootLayout({
                       io.unobserve(e.target);
                     }
                   });
-                }, { threshold: 0.12 });
-                document.querySelectorAll('.reveal, .court-line').forEach(function(el) {
-                  io.observe(el);
-                });
-                var mo = new MutationObserver(function() {
-                  document.querySelectorAll('.reveal:not(.is-visible), .court-line:not(.is-drawn)').forEach(function(el) {
-                    io.observe(el);
+                }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+                function observeAll() {
+                  document.querySelectorAll(selector).forEach(function(el) {
+                    if (!el.classList.contains('is-visible') && !el.classList.contains('is-drawn')) {
+                      io.observe(el);
+                    }
                   });
-                });
+                }
+                observeAll();
+
+                var mo = new MutationObserver(observeAll);
                 mo.observe(document.body, { childList: true, subtree: true });
               })();
             `,

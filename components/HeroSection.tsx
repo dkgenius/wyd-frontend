@@ -6,11 +6,12 @@ export default function HeroSection() {
   const headlineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Subtle horizontal text parallax on scroll
     const handleScroll = () => {
       if (!headlineRef.current) return;
       const y = window.scrollY;
-      headlineRef.current.style.transform = `translateY(${y * 0.3}px)`;
+      // Reduced parallax on mobile for performance
+      const factor = window.innerWidth < 768 ? 0.15 : 0.28;
+      headlineRef.current.style.transform = `translateY(${y * factor}px)`;
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -22,6 +23,7 @@ export default function HeroSection() {
         position: "relative",
         width: "100%",
         height: "100svh",
+        minHeight: 600,
         overflow: "hidden",
         background: "#080808",
         display: "flex",
@@ -37,7 +39,7 @@ export default function HeroSection() {
         muted
         playsInline
         poster="https://whatyoudink.com/assets/hero-poster.jpg"
-        style={{ filter: "brightness(0.45) saturate(1.1)" }}
+        style={{ filter: "brightness(0.4) saturate(1.1)" }}
       >
         <source src="https://whatyoudink.com/assets/hero-loop.mp4" type="video/mp4" />
       </video>
@@ -47,8 +49,7 @@ export default function HeroSection() {
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.9) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 90% 60% at 50% 110%, rgba(0,0,0,0.95) 0%, transparent 65%)",
           pointerEvents: "none",
         }}
       />
@@ -56,8 +57,7 @@ export default function HeroSection() {
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.7) 100%)",
+          background: "linear-gradient(180deg, rgba(0,0,0,0.5) 0%, transparent 25%, transparent 55%, rgba(0,0,0,0.75) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -66,7 +66,7 @@ export default function HeroSection() {
         style={{
           position: "absolute",
           inset: 0,
-          opacity: 0.04,
+          opacity: 0.035,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: "180px 180px",
           pointerEvents: "none",
@@ -83,7 +83,7 @@ export default function HeroSection() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          padding: "0 24px",
+          padding: "80px 20px 40px",
           textAlign: "center",
           willChange: "transform",
         }}
@@ -92,12 +92,12 @@ export default function HeroSection() {
         <p
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: 12,
+            fontSize: 11,
             fontWeight: 600,
             letterSpacing: "0.22em",
             textTransform: "uppercase",
             color: "var(--ball)",
-            marginBottom: 24,
+            marginBottom: 20,
             opacity: 0,
             animation: "fadeUp 0.8s ease 0.3s forwards",
           }}
@@ -109,7 +109,7 @@ export default function HeroSection() {
         <h1
           style={{
             fontFamily: "var(--font-display)",
-            fontSize: "clamp(64px, 13vw, 200px)",
+            fontSize: "clamp(60px, 16vw, 200px)",
             lineHeight: 0.92,
             letterSpacing: "0.02em",
             color: "#EBEBEB",
@@ -129,27 +129,28 @@ export default function HeroSection() {
         <p
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: 16,
-            color: "rgba(235,235,235,0.65)",
-            marginTop: 28,
-            maxWidth: 520,
-            lineHeight: 1.6,
+            fontSize: "clamp(13px, 3.5vw, 16px)",
+            color: "rgba(235,235,235,0.6)",
+            marginTop: 24,
+            maxWidth: 480,
+            lineHeight: 1.65,
             opacity: 0,
             animation: "fadeUp 0.9s ease 0.75s forwards",
           }}
         >
-          Real in-person reviews, honest ratings, video walkthroughs — and a
-          map of every court near you.
+          Real in-person reviews, honest ratings, video walkthroughs —{" "}
+          and a map of every court near you.
         </p>
 
         {/* CTAs */}
         <div
           style={{
-            marginTop: 36,
+            marginTop: 32,
             display: "flex",
-            flexWrap: "wrap",
-            gap: 12,
-            justifyContent: "center",
+            flexDirection: "column",
+            gap: 10,
+            width: "100%",
+            maxWidth: 320,
             opacity: 0,
             animation: "fadeUp 0.9s ease 0.95s forwards",
           }}
@@ -162,14 +163,13 @@ export default function HeroSection() {
               fontWeight: 700,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              padding: "14px 32px",
+              padding: "16px 28px",
               borderRadius: 999,
               background: "var(--ball)",
               color: "#080808",
+              textAlign: "center",
               transition: "opacity 0.2s, transform 0.2s",
             }}
-            onMouseEnter={e => { e.currentTarget.style.opacity = "0.88"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-            onMouseLeave={e => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.transform = "none"; }}
           >
             Find Courts Near Me
           </a>
@@ -181,26 +181,25 @@ export default function HeroSection() {
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              padding: "14px 32px",
+              padding: "16px 28px",
               borderRadius: 999,
-              border: "1px solid rgba(235,235,235,0.25)",
+              border: "1px solid rgba(235,235,235,0.2)",
               color: "var(--text)",
+              textAlign: "center",
               transition: "background 0.2s, transform 0.2s",
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = "rgba(235,235,235,0.08)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.transform = "none"; }}
           >
             Browse Reviews
           </a>
         </div>
       </div>
 
-      {/* ── Corner info ── */}
+      {/* ── Corner badge ── */}
       <div
         style={{
           position: "absolute",
-          bottom: 32,
-          left: 32,
+          bottom: 24,
+          left: 20,
           display: "flex",
           alignItems: "center",
           gap: 8,
@@ -216,12 +215,13 @@ export default function HeroSection() {
             background: "var(--ball)",
             display: "inline-block",
             animation: "blink 1.6s infinite",
+            flexShrink: 0,
           }}
         />
         <span
           style={{
             fontFamily: "var(--font-body)",
-            fontSize: 11,
+            fontSize: 10,
             letterSpacing: "0.14em",
             color: "var(--muted)",
             textTransform: "uppercase",
@@ -231,12 +231,12 @@ export default function HeroSection() {
         </span>
       </div>
 
-      {/* ── Scroll indicator ── */}
+      {/* ── Scroll indicator (hidden on mobile) ── */}
       <div
         style={{
           position: "absolute",
-          bottom: 28,
-          right: 32,
+          bottom: 24,
+          right: 20,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -244,6 +244,7 @@ export default function HeroSection() {
           opacity: 0,
           animation: "fadeIn 1s ease 1.6s forwards",
         }}
+        className="hidden md:flex"
       >
         <span
           style={{
@@ -269,14 +270,14 @@ export default function HeroSection() {
 
       <style>{`
         @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
+          from { opacity: 0; transform: translateY(28px); }
           to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes fadeIn {
           from { opacity: 0; } to { opacity: 1; }
         }
         @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-        @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+        @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.9} }
       `}</style>
     </section>
   );

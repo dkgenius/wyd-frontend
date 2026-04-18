@@ -39,8 +39,10 @@ body {
   overscroll-behavior: none;
 }
 
+body.menu-open { overflow: hidden; }
+
 /* ── Scrollbar ── */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #0a0a0a; }
 ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 3px; }
 
@@ -51,18 +53,81 @@ body {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
-/* ── Reveal animations ── */
+/* ══════════════════════════════════════════
+   SCROLL REVEAL ANIMATIONS
+   All variants animate in when .is-visible is added by IntersectionObserver
+   ══════════════════════════════════════════ */
+
+/* Fade up (default) */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(36px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Slide from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-48px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-left.is-visible { opacity: 1; transform: translateX(0); }
+
+/* Slide from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-right.is-visible { opacity: 1; transform: translateX(0); }
+
+/* Scale up */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.88);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-scale.is-visible { opacity: 1; transform: scale(1); }
+
+/* Fade only */
+.reveal-fade {
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.reveal-fade.is-visible { opacity: 1; }
+
+/* Tilt-up (slight rotation) */
+.reveal-tilt {
+  opacity: 0;
+  transform: translateY(28px) rotate(-1.5deg);
+  transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-tilt.is-visible { opacity: 1; transform: translateY(0) rotate(0deg); }
+
+/* Blur in */
+.reveal-blur {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(16px);
+  transition: opacity 0.9s ease,
+              filter 0.9s ease,
+              transform 0.9s ease;
+}
+.reveal-blur.is-visible { opacity: 1; filter: blur(0); transform: translateY(0); }
+
+/* Stagger delays */
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+.reveal-delay-5 { transition-delay: 0.40s; }
+.reveal-delay-6 { transition-delay: 0.48s; }
 
 /* ── Nav frosted (on scroll) ── */
 .nav-frosted {
@@ -91,12 +156,12 @@ img { max-width: 100%; display: block; }
   0%   { transform: translateX(-50%); }
   100% { transform: translateX(0); }
 }
-.marquee-track { display: flex; width: max-content; }
+.marquee-track { display: flex; width: max-content; will-change: transform; }
 .marquee-ltr { animation: marquee-right 24s linear infinite; }
 .marquee-rtl { animation: marquee-left  28s linear infinite; }
 .marquee-ltr-slow { animation: marquee-right 36s linear infinite; }
 
-/* ── Work grid cards ── */
+/* ── Court cards ── */
 .court-card {
   position: relative;
   overflow: hidden;
@@ -107,14 +172,14 @@ img { max-width: 100%; display: block; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.court-card:hover .court-card-img { transform: scale(1.05); }
+.court-card:hover .court-card-img { transform: scale(1.06); }
 
 .court-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+  background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.88) 100%);
   pointer-events: none;
 }
 .court-card-meta {
@@ -125,22 +190,31 @@ img { max-width: 100%; display: block; }
   padding: 20px;
 }
 
-/* Glitch layer on hover */
+/* Glitch neon layer on hover */
 .court-card .glitch-layer {
   position: absolute;
   inset: 0;
   opacity: 0;
   background: linear-gradient(to bottom,
     rgba(199,255,46,0) 0%,
-    rgba(199,255,46,0.12) 5%,
-    rgba(199,255,46,0.12) 95%,
+    rgba(199,255,46,0.10) 5%,
+    rgba(199,255,46,0.10) 95%,
     rgba(199,255,46,0) 100%);
   mix-blend-mode: screen;
   filter: blur(4px);
-  transition: opacity 0.2s ease-out;
+  transition: opacity 0.25s ease-out;
   pointer-events: none;
 }
 .court-card:hover .glitch-layer { opacity: 1; }
+
+/* ── Mobile menu overlay animation ── */
+@keyframes menuSlideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mobile-menu-overlay {
+  animation: menuSlideIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
 
 /* ── Pill tag ── */
 .pill {
@@ -175,4 +249,40 @@ img { max-width: 100%; display: block; }
   outline: 2px solid var(--ball);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* ── Utility: neon underline on hover ── */
+.hover-neon {
+  position: relative;
+}
+.hover-neon::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 100%;
+  height: 1px;
+  background: var(--ball);
+  transition: right 0.3s ease;
+}
+.hover-neon:hover::after { right: 0; }
+
+/* ── Line draw animation ── */
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.court-line {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.court-line.is-drawn { transform: scaleX(1); }
+
+/* ── Mobile padding helpers ── */
+.section-pad {
+  padding: 80px 20px;
+}
+@media (min-width: 768px) {
+  .section-pad { padding: 120px 32px; }
 }
