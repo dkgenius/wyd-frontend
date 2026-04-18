@@ -150,33 +150,29 @@ export default function ClinicSection() {
             overflow: "hidden",
             padding: "48px 32px",
             marginTop: 20,
-            background: "linear-gradient(135deg, var(--teal) 0%, #051e25 100%)",
+            background: "linear-gradient(135deg, #1c1a12 0%, #141210 50%, #0d0c0a 100%)",
             display: "flex",
             flexWrap: "wrap",
             alignItems: "center",
             justifyContent: "space-between",
             gap: 28,
+            border: "1px solid rgba(235,235,235,0.07)",
           }}
         >
-          {/* Grid pattern */}
+          {/* Subtle warm vignette — no grid, just depth */}
           <div
             style={{
               position: "absolute",
               inset: 0,
-              opacity: 0.07,
-              backgroundImage: "linear-gradient(rgba(199,255,46,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(199,255,46,0.5) 1px, transparent 1px)",
-              backgroundSize: "32px 32px",
+              background: "radial-gradient(ellipse 70% 80% at 0% 50%, rgba(220,91,30,0.08) 0%, transparent 65%)",
               pointerEvents: "none",
             }}
           />
           <div
             style={{
               position: "absolute",
-              top: 0,
-              right: 0,
-              width: 250,
-              height: 250,
-              background: "radial-gradient(circle at top right, rgba(199,255,46,0.18) 0%, transparent 60%)",
+              inset: 0,
+              background: "radial-gradient(ellipse 50% 60% at 100% 100%, rgba(199,255,46,0.04) 0%, transparent 60%)",
               pointerEvents: "none",
             }}
           />
