@@ -1,3 +1,5 @@
+"use client";
+
 const footerLinks = {
   Explore: [
     { label: "Find Courts", href: "https://whatyoudink.com/map.php" },
